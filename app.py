@@ -17,10 +17,16 @@ def index():
 def connected():
     print('connect')
 
-@socketio.on('message')
+@socketio.on('sms')
 def message(json, methods=['GET']):
     #print(json)
     socketio.emit('message_response', json)
+
+@socketio.on('check')
+def message(json, methods=['GET']):
+    # print(json)
+    socketio.emit('message_response', json)   
+    socketio.emit('answer_response', json) 
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
