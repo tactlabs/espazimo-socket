@@ -34,9 +34,10 @@
             <label for="answer_message" class="form-label mt-5">Answer box!</label>
             <textarea class="form-control mb-3 mt-2" type="text" id="answer_message" rows="5"></textarea>
         </div>
+        <div class="container">
+            <input type="button" id="reveal_answers" class="btn btn-primary"  value="Reveal Answers" />
+        </div>
     <!-- </form> -->
-
-
 
     </div>
     <script>
@@ -67,7 +68,13 @@
                 option_3 : option_3,
                 option_4 : option_4,
 
-            })
+            });
+        });
+
+        $('#reveal_answers').click(function(){
+            socket.emit('reveal-answers', {
+                'karuvadu' : 2
+            });
         });
 
         socket.on('submit-answer-to-admin', function(json){

@@ -64,6 +64,7 @@
             <div class="row">
                 <div class="col-sm">
                     <input type="text" id="team_name" placeholder="Team Name" class="form-control mb-3 mt-2" />
+                    <input type="hidden" id="my_answer" />
                 </div>
             </div>
 
@@ -138,6 +139,19 @@
             update_cards(option_1, option_2, option_3, option_4);
         });
 
+        socket.on('reveal-answers', function(result){
+            var answer = result.answer;
+
+            var my_answer = $('#my_answer').val();
+
+            var theme_color = 'red';
+            if(answer == my_answer){
+                theme_color = 'green';
+            }
+
+            show_vedhavoda_answer_dubba(my_answer, theme_color);
+        });
+
         function update_cards(option_1, option_2, option_3, option_4){
 
             // option_1 = $.trim(option_1);
@@ -193,6 +207,11 @@
             $('div#card_base_container').html(all_cards_content);
         }
 
+        function close_ennoda_dubba(){
+            
+            $('div#card_base_container').html('');
+        }
+
         function colog(obj){
             console.log(obj);
         }
@@ -206,6 +225,25 @@
                 team_name : team_name,
                 answer: answer
             });
+
+            close_ennoda_dubba();
+
+            $('#my_answer').val(answer);
+        }
+
+        function show_vedhavoda_answer_dubba(answer, theme_color){
+            var card_1_html = '<div class="col-sm" style="background-color:'+theme_color+'">';
+            card_1_html    += '<div class="card" style="">';
+            card_1_html    += '<div class="card-body">';
+            card_1_html    += '<h4 class="card-title">'+answer+'</h4>';
+            card_1_html    += '<p class="card-text"></p>';
+            
+            card_1_html    += '</div>';
+            card_1_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_1_html    += '</div>';
+            card_1_html    += '</div>';
+
+            $('div#card_base_container').html(card_1_html);
         }
 
         // It doesn't work dynamic html; We have to find a better to way to fix this; We just use select_option method ATM
