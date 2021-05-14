@@ -22,8 +22,8 @@
 
             <input type="text" id="option_1" placeholder="Option 1" class="form-control mb-3 mt-2" />
             <input type="text" id="option_2" placeholder="Option 2" class="form-control mb-3 mt-2" />
-            <!-- <input type="text" id="option_3" placeholder="Option 3" class="form-control mb-3 mt-2" />
-            <input type="text" id="option_4" placeholder="Option 4" class="form-control mb-3 mt-2" /> -->
+            <input type="text" id="option_3" placeholder="Option 3" class="form-control mb-3 mt-2" />
+            <input type="text" id="option_4" placeholder="Option 4" class="form-control mb-3 mt-2" />
 
             <button class="btn btn-primary">Push</button>
         </div>
@@ -54,8 +54,8 @@
 
             var option_1 = $('#option_1').val();
             var option_2 = $('#option_2').val();
-            // var option_3 = $('#option_3').val();
-            // var option_4 = $('#option_4').val();
+            var option_3 = $('#option_3').val();
+            var option_4 = $('#option_4').val();
 
             //console.log(text);
             event.preventDefault();
@@ -63,9 +63,9 @@
                 question: question,
 
                 option_1 : option_1,
-                option_2 : option_2
-                // option_3 : option_3,
-                // option_4 : option_4,
+                option_2 : option_2,
+                option_3 : option_3,
+                option_4 : option_4,
 
             })
         });

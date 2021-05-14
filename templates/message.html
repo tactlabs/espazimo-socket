@@ -140,8 +140,8 @@
 
         function update_cards(option_1, option_2, option_3, option_4){
 
-            option_1 = $.trim(option_1);
-            option_2 = $.trim(option_2);
+            // option_1 = $.trim(option_1);
+            // option_2 = $.trim(option_2);
 
             var card_1_html = '<div class="col-sm">';
             card_1_html    += '<div class="card" style="">';
@@ -165,30 +165,30 @@
             card_2_html    += '</div>';
             card_2_html    += '</div>';
 
-            // var card_3_html = '<div class="col-sm">';
-            // card_3_html    += '<div class="card" style="">';
-            // card_3_html    += '<div class="card-body">';
-            // card_3_html    += '<h4 class="card-title">'+option_3+'</h4>';
-            // card_3_html    += '<p class="card-text"></p>';
-            // card_3_html    += '<a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>';
-            // card_3_html    += '</div>';
-            // card_3_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
-            // card_3_html    += '</div>';
-            // card_3_html    += '</div>';
+            var card_3_html = '<div class="col-sm">';
+            card_3_html    += '<div class="card" style="">';
+            card_3_html    += '<div class="card-body">';
+            card_3_html    += '<h4 class="card-title">'+option_3+'</h4>';
+            card_3_html    += '<p class="card-text"></p>';
+            card_3_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_3+'\');" class="option_select btn btn-primary">Select</a>';
+            card_3_html    += '</div>';
+            card_3_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_3_html    += '</div>';
+            card_3_html    += '</div>';
 
-            // var card_4_html = '<div class="col-sm">';
-            // card_4_html    += '<div class="card" style="">';
-            // card_4_html    += '<div class="card-body">';
-            // card_4_html    += '<h4 class="card-title">'+option_4+'</h4>';
-            // card_4_html    += '<p class="card-text"></p>';
-            // card_4_html    += '<a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>';
-            // card_4_html    += '</div>';
-            // card_4_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
-            // card_4_html    += '</div>';
-            // card_4_html    += '</div>';
+            var card_4_html = '<div class="col-sm">';
+            card_4_html    += '<div class="card" style="">';
+            card_4_html    += '<div class="card-body">';
+            card_4_html    += '<h4 class="card-title">'+option_4+'</h4>';
+            card_4_html    += '<p class="card-text"></p>';
+            card_4_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_4+'\');" class="option_select btn btn-primary">Select</a>';
+            card_4_html    += '</div>';
+            card_4_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_4_html    += '</div>';
+            card_4_html    += '</div>';
+            
 
-            var all_cards_content = card_1_html + card_2_html; 
-                // + card_3_html + card_4_html;
+            var all_cards_content = card_1_html + card_2_html + card_3_html + card_4_html;
 
             $('div#card_base_container').html(all_cards_content);
         }
