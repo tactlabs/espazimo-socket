@@ -17,16 +17,16 @@ def index():
 def connected():
     print('connect')
 
-@socketio.on('sms')
+@socketio.on('push-question')
 def message(json, methods = ['GET']):
     #print(json)
     socketio.emit('message_response', json)
 
-@socketio.on('check')
+@socketio.on('submit-answer')
 def message(json, methods = ['GET']):
-    # print(json)
-    socketio.emit('message_response', json)   
-    socketio.emit('answer_response', json) 
+    print(json)
+    # socketio.emit('message_response', json)   
+    socketio.emit('submit-answer-to-admin', json) 
 
 if __name__ == '__main__':
     socketio.run(app, debug = True)

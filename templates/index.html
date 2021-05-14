@@ -17,15 +17,21 @@
 <body>
     <form method="POST">
         <div class="container">
-            <label for="text_message" class="form-label mt-5">Question box!</label>
-            <textarea class="form-control mb-3 mt-2" type="text" id="text_message" rows="5"></textarea>
+            <label for="question" class="form-label mt-5">Question Box</label>
+            <textarea class="form-control mb-3 mt-2" type="text" id="question" rows="5"></textarea>
+
+            <input type="text" id="option_1" placeholder="Option 1" class="form-control mb-3 mt-2" />
+            <input type="text" id="option_2" placeholder="Option 2" class="form-control mb-3 mt-2" />
+            <!-- <input type="text" id="option_3" placeholder="Option 3" class="form-control mb-3 mt-2" />
+            <input type="text" id="option_4" placeholder="Option 4" class="form-control mb-3 mt-2" /> -->
+
             <button class="btn btn-primary">Push</button>
         </div>
     </form>
 
     <!-- <form method="POST"> -->
         <div class="container" id='answer_box'>
-            <label for="text_message" class="form-label mt-5">Answer box!</label>
+            <label for="answer_message" class="form-label mt-5">Answer box!</label>
             <textarea class="form-control mb-3 mt-2" type="text" id="answer_message" rows="5"></textarea>
         </div>
     <!-- </form> -->
@@ -40,15 +46,31 @@
                 console.log('Admin Connected')
             });
 
+        // push admin message to clients
         $('form').on('submit', function(event) {
-            text = document.getElementById("text_message").value;
+            
+            // var text = document.getElementById("question").value;
+            var question = $('#question').val();
+
+            var option_1 = $('#option_1').val();
+            var option_2 = $('#option_2').val();
+            // var option_3 = $('#option_3').val();
+            // var option_4 = $('#option_4').val();
+
             //console.log(text);
             event.preventDefault();
-            socket.emit('sms', {
-                message: text
+            socket.emit('push-question', {
+                question: question,
+
+                option_1 : option_1,
+                option_2 : option_2
+                // option_3 : option_3,
+                // option_4 : option_4,
+
             })
-        })
-        socket.on('answer_response', function(json){
+        });
+
+        socket.on('submit-answer-to-admin', function(json){
             console.log(json);
             $('#answer_message').append(json.message + '\n');
 

@@ -49,7 +49,7 @@
             </div>
             <div class="card-body">
                 <div class="container">
-                    <pre id="text">
+                    <pre id="quiz-question">
                     </pre>
                 </div>
             </div>
@@ -70,15 +70,15 @@
             <input type="radio" id="Option4" name="option" value="D">
             <label for="Option4">D</label><br> -->
 
-            <div class="row">
-                <div class="col-sm">
+            <div class="row" id="card_base_container">
+                <!-- <div class="col-sm">
                     <div class="card" style="">
                         <div class="card-body">
                             <h4 class="card-title">Mars</h4>
                             <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
                             <a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>
                         </div>
-                    <!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->
+
                     </div>
                 </div>
                 <div class="col-sm">
@@ -88,7 +88,7 @@
                             <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
                             <a href="#" data-option-index="2" class="option_select btn btn-primary">Select</a>
                         </div>
-                        <!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->
+                        
                     </div>
                 </div>
                 <div class="col-sm">
@@ -98,9 +98,9 @@
                             <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
                             <a href="#" data-option-index="3" class="option_select btn btn-primary">Select</a>
                         </div>
-                    <!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->
+                    
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <br>
@@ -116,37 +116,107 @@
                 console.log('Client Connected')
             });
 
-        socket.on('message_response', function (msg) {
-            //console.log(msg);
-            document.getElementById("text").innerHTML = msg.message;
-        })
+        socket.on('message_response', function (result) {
+            //console.log(result);
+            // document.getElementById("quiz-question").innerHTML = result.message;
+
+            var quiz_question = result.question;
+            $("#quiz-question").html(quiz_question);
+
+            var option_1 = result.option_1;
+
+            // update the cards
+            var option_2 = result.option_2;
+            var option_3 = result.option_3;
+            var option_4 = result.option_4;
+            update_cards(option_1, option_2, option_3, option_4);
+        });
+
+        function update_cards(option_1, option_2, option_3, option_4){
+
+            var card_1_html = '<div class="col-sm">';
+            card_1_html    += '<div class="card" style="">';
+            card_1_html    += '<div class="card-body">';
+            card_1_html    += '<h4 class="card-title">'+option_1+'</h4>';
+            card_1_html    += '<p class="card-text"></p>';
+            card_1_html    += '<a href="#" data-option-index="1" onclick="select_option('+option_1+');" class="option_select btn btn-primary">Select</a>';
+            card_1_html    += '</div>';
+            card_1_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_1_html    += '</div>';
+            card_1_html    += '</div>';
+
+            var card_2_html = '<div class="col-sm">';
+            card_2_html    += '<div class="card" style="">';
+            card_2_html    += '<div class="card-body">';
+            card_2_html    += '<h4 class="card-title">'+option_2+'</h4>';
+            card_2_html    += '<p class="card-text"></p>';
+            card_2_html    += '<a href="#" data-option-index="1" onclick="select_option('+option_2+');" class="option_select btn btn-primary">Select</a>';
+            card_2_html    += '</div>';
+            card_2_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_2_html    += '</div>';
+            card_2_html    += '</div>';
+
+            // var card_3_html = '<div class="col-sm">';
+            // card_3_html    += '<div class="card" style="">';
+            // card_3_html    += '<div class="card-body">';
+            // card_3_html    += '<h4 class="card-title">'+option_3+'</h4>';
+            // card_3_html    += '<p class="card-text"></p>';
+            // card_3_html    += '<a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>';
+            // card_3_html    += '</div>';
+            // card_3_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            // card_3_html    += '</div>';
+            // card_3_html    += '</div>';
+
+            // var card_4_html = '<div class="col-sm">';
+            // card_4_html    += '<div class="card" style="">';
+            // card_4_html    += '<div class="card-body">';
+            // card_4_html    += '<h4 class="card-title">'+option_4+'</h4>';
+            // card_4_html    += '<p class="card-text"></p>';
+            // card_4_html    += '<a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>';
+            // card_4_html    += '</div>';
+            // card_4_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            // card_4_html    += '</div>';
+            // card_4_html    += '</div>';
+
+            var all_cards_content = card_1_html + card_2_html; 
+                // + card_3_html + card_4_html;
+
+            $('div#card_base_container').html(all_cards_content);
+        }
 
         function colog(obj){
             console.log(obj);
         }
 
-        $('a.option_select').click(function(){
-            
-            // colog('a clicked');
-
-            var option_index = $(this).data('option-index');
-
-            colog(option_index);
-
-            // $('input#quiz_hidden').val(option_index);
-
-            socket.emit('check', {
+        function select_option(option_index){
+            socket.emit('submit-answer', {
                 message: option_index
             });
+        }
 
-            // find the selected card and submit it
-        });
+        // It doesn't work dynamic html; We have to find a better to way to fix this; We just use select_option method ATM
+        // $('a.option_select').click(function(){
+            
+        //     // colog('a clicked');
 
-        $('form#quiz_form').on('submit', function (event) {
+        //     var option_index = $(this).data('option-index');
+
+        //     colog(option_index);
+
+        //     // $('input#quiz_hidden').val(option_index);
+
+        //     socket.emit('submit-answer', {
+        //         message: option_index
+        //     });
+
+        //     // find the selected card and submit it
+        // });
+
+        // $('form#quiz_form').on('submit', function (event) {
             // var option = document.querySelector('input[name="option"]:checked').value;
             // var checkbox_to_update = $("#options").val();
 
-            colog('ssddsf');
+            // colog('ssddsf');
             
             // var form = $("#options");
             // var option = form.find("input[name=option]:checked").val();
@@ -155,18 +225,19 @@
             // socket.emit('check', {
             //     message: option
             // })
-        })
-        $('#form1').on('submit', function (event) {
-            // // var option = document.querySelector('input[name="option"]:checked').value;
-            // // var checkbox_to_update = $("#options").val();
-            // var form = $("#options");
-            // var option = form.find("input[name=option]:checked").val();
-            // // console.log(option);
-            // socket.emit('check', {
-            //     message: option
-            // })
-            $('#form1').hide();
-        })
+        // })
+
+        // $('#form1').on('submit', function (event) {
+        //     // // var option = document.querySelector('input[name="option"]:checked').value;
+        //     // // var checkbox_to_update = $("#options").val();
+        //     // var form = $("#options");
+        //     // var option = form.find("input[name=option]:checked").val();
+        //     // // console.log(option);
+        //     // socket.emit('check', {
+        //     //     message: option
+        //     // })
+        //     $('#form1').hide();
+        // })
     </script>
 </body>
 
