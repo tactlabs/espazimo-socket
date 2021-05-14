@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>cards</title>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Oswald:700);
+
+.scrum-card {
+  position: relative;
+  font-family: "Oswald", sans-serif;
+  font-size: 10em;
+  border: 1px #000 solid;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 0;
+  width: 200px;
+  height: 300px;
+  line-height: 300px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<!-- 
+Planning Poker for Scrum
+-->
+<div data-role="page" data-theme="a">
+  <div data-role="header" data-position="inline">
+    <h1>Planning Poker</h1>
+  </div>
+  <div data-role="content" data-theme="a">
+    <div class="scrum-card">
+      <span>0</span>
+    </div>
+    <label for="select-choice-a" class="select">Select card value:</label>
+    <select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+      <option>Select Value</option>
+      <option value="0">0</option>
+      <option value="½">½</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="8">8</option>
+      <option value="13">13</option>
+      <option value="20">20</option>
+      <option value="40">40</option>
+      <option value="99">99</option>
+    </select>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+(function ($) {
+  var scrumCardElement = $(".scrum-card");
+  var selectCardElement = $("#select-choice-a");
+
+  $(selectCardElement).change(function () {
+    var sVal = selectCardElement.val();
+    scrumCardElement.text(sVal);
+  });
+})(jQuery);
+
+</script>
+</body>
+</html>
