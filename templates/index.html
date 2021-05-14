@@ -72,7 +72,13 @@
 
         socket.on('submit-answer-to-admin', function(json){
             console.log(json);
-            $('#answer_message').append(json.message + '\n');
+
+            var team_name = json.team_name;
+            var answer = json.answer;
+
+            var result = team_name + " : " + answer;
+
+            $('#answer_message').append(result + '\n');
 
         })
     </script>

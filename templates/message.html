@@ -57,9 +57,15 @@
     </div>
 
     <div class="container">
-        <form action="" id="quiz_form" method="POST">
-            <input type="hidden" id="quiz_hidden" value="NA" />
-        </form>
+            <!-- <form action="" id="quiz_form" method="POST">
+                <input type="hidden" id="quiz_hidden" value="NA" />
+            </form> -->
+
+            <div class="row">
+                <div class="col-sm">
+                    <input type="text" id="team_name" placeholder="Team Name" class="form-control mb-3 mt-2" />
+                </div>
+            </div>
 
             <!-- <input type="radio" id="Option1" name="option" value="A">
             <label for="Option1">A</label><br>
@@ -191,10 +197,14 @@
             console.log(obj);
         }
 
-        function select_option(option_index){
-            colog('option_index : '+ option_index);
+        function select_option(answer){
+
+            var team_name = $('#team_name').val();
+
+            colog('option_index : '+ answer);
             socket.emit('submit-answer', {
-                message: option_index
+                team_name : team_name,
+                answer: answer
             });
         }
 
