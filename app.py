@@ -11,7 +11,7 @@ def admin():
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
-    return render_template("participant.html")
+    return render_template("firstpage.html")
 
 @socketio.on('connect')
 def connected():
