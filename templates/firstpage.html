@@ -24,7 +24,7 @@
   word-spacing: 0em;
 }
 body{
-    background:url("solar_system_2.gif");
+    background:url("static/solar_system_2.gif");
     background-size:contain;
     height:100vh;
     padding:0;
@@ -61,6 +61,7 @@ body {
   outline: none;
   position: relative;
   padding: 10px;
+  top:50rem;
 }
 
 button::before {
@@ -132,7 +133,9 @@ button:focus::after {
         <span class="word">ZIMOS</span>
       </h1>
       <div class="wrap">
-        <button class="button">ENTER SPACE</button>
+        <a href="/">
+          <button class="button">ENTER SPACE</button>
+        </a>
       </div>
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
