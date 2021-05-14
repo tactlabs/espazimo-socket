@@ -11,22 +11,34 @@ def admin():
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
-    return render_template("message.html")
+    return render_template("participant.html")
 
 @socketio.on('connect')
 def connected():
     print('connect')
 
-@socketio.on('sms')
-def message(json, methods=['GET']):
+@socketio.on('push-question')
+def message(json, methods = ['GET']):
     #print(json)
     socketio.emit('message_response', json)
 
-@socketio.on('check')
-def message(json, methods=['GET']):
-    # print(json)
-    socketio.emit('message_response', json)   
-    socketio.emit('answer_response', json) 
+@socketio.on('submit-answer')
+def message(json, methods = ['GET']):
+    print(json)
+    # socketio.emit('message_response', json)   
+    socketio.emit('submit-answer-to-admin', json) 
+
+@socketio.on('reveal-answers')
+def message(json, methods = ['GET']):
+    #print(json)
+
+    print('[reveal-answers]')
+
+    result_json = {
+        'answer' : 'Toronto'
+    }
+
+    socketio.emit('reveal-answers', result_json)
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug = True)

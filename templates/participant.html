@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Espazimo</title>
+    <!-- JavaScript SocketIO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous">
+    </script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+
+
+        <div class="row">
+            <div class="container">
+                <!-- <h1>Espazimo</h1> -->
+                <p></p>
+              </div>
+        </div>
+    </div>
+
+
+    <!-- <form action="" id='form1'>
+        <label for="team-name">Enter your team name</label>
+        <input type="text" id='team-name' required>
+        <input type="submit" id="submit-name" value="submit">
+
+    </form> -->
+    <div class="container mt-5 mb-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Espazimo
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <pre id="quiz-question">
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+            <!-- <form action="" id="quiz_form" method="POST">
+                <input type="hidden" id="quiz_hidden" value="NA" />
+            </form> -->
+
+            <div class="row">
+                <div class="col-sm">
+                    <input type="text" id="team_name" placeholder="Team Name" class="form-control mb-3 mt-2" />
+                    <input type="hidden" id="my_answer" />
+                </div>
+            </div>
+
+            <!-- <input type="radio" id="Option1" name="option" value="A">
+            <label for="Option1">A</label><br>
+            <input type="radio" id="Option2" name="option" value="B">
+            <label for="Option2">B</label><br>
+            <input type="radio" id="Option3" name="option" value="C">
+            <label for="Option3">C</label><br>
+            <input type="radio" id="Option4" name="option" value="D">
+            <label for="Option4">D</label><br> -->
+
+            <div class="row" id="card_base_container">
+                <!-- <div class="col-sm">
+                    <div class="card" style="">
+                        <div class="card-body">
+                            <h4 class="card-title">Mars</h4>
+                            <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+                            <a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card" style="">
+                        <div class="card-body">
+                            <h4 class="card-title">Jupiter</h4>
+                            <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+                            <a href="#" data-option-index="2" class="option_select btn btn-primary">Select</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card" style="">
+                        <div class="card-body">
+                            <h4 class="card-title">Moon</h4>
+                            <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
+                            <a href="#" data-option-index="3" class="option_select btn btn-primary">Select</a>
+                        </div>
+                    
+                    </div>
+                </div> -->
+            </div>
+
+            <br>
+            <!-- <input type="submit" class="btn btn-primary" id="submit-option" value="submit"> -->
+        </form>
+    </div>
+
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('connect',
+            function () {
+                console.log('Client Connected')
+            });
+
+        socket.on('message_response', function (result) {
+            //console.log(result);
+            // document.getElementById("quiz-question").innerHTML = result.message;
+
+            var quiz_question = result.question;
+            $("#quiz-question").html(quiz_question);
+
+            var option_1 = result.option_1;
+
+            // update the cards
+            var option_2 = result.option_2;
+            var option_3 = result.option_3;
+            var option_4 = result.option_4;
+            update_cards(option_1, option_2, option_3, option_4);
+        });
+
+        socket.on('reveal-answers', function(result){
+            var answer = result.answer;
+
+            var my_answer = $('#my_answer').val();
+
+            var theme_color = 'red';
+            if(answer == my_answer){
+                theme_color = 'green';
+            }
+
+            show_vedhavoda_answer_dubba(my_answer, theme_color);
+        });
+
+        function update_cards(option_1, option_2, option_3, option_4){
+
+            // option_1 = $.trim(option_1);
+            // option_2 = $.trim(option_2);
+
+            var card_1_html = '<div class="col-sm">';
+            card_1_html    += '<div class="card" style="">';
+            card_1_html    += '<div class="card-body">';
+            card_1_html    += '<h4 class="card-title">'+option_1+'</h4>';
+            card_1_html    += '<p class="card-text"></p>';
+            card_1_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_1+'\');" class="option_select btn btn-primary">Select</a>';
+            card_1_html    += '</div>';
+            card_1_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_1_html    += '</div>';
+            card_1_html    += '</div>';
+
+            var card_2_html = '<div class="col-sm">';
+            card_2_html    += '<div class="card" style="">';
+            card_2_html    += '<div class="card-body">';
+            card_2_html    += '<h4 class="card-title">'+option_2+'</h4>';
+            card_2_html    += '<p class="card-text"></p>';
+            card_2_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_2+'\');" class="option_select btn btn-primary">Select</a>';
+            card_2_html    += '</div>';
+            card_2_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_2_html    += '</div>';
+            card_2_html    += '</div>';
+
+            var card_3_html = '<div class="col-sm">';
+            card_3_html    += '<div class="card" style="">';
+            card_3_html    += '<div class="card-body">';
+            card_3_html    += '<h4 class="card-title">'+option_3+'</h4>';
+            card_3_html    += '<p class="card-text"></p>';
+            card_3_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_3+'\');" class="option_select btn btn-primary">Select</a>';
+            card_3_html    += '</div>';
+            card_3_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_3_html    += '</div>';
+            card_3_html    += '</div>';
+
+            var card_4_html = '<div class="col-sm">';
+            card_4_html    += '<div class="card" style="">';
+            card_4_html    += '<div class="card-body">';
+            card_4_html    += '<h4 class="card-title">'+option_4+'</h4>';
+            card_4_html    += '<p class="card-text"></p>';
+            card_4_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_4+'\');" class="option_select btn btn-primary">Select</a>';
+            card_4_html    += '</div>';
+            card_4_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_4_html    += '</div>';
+            card_4_html    += '</div>';
+            
+
+            var all_cards_content = card_1_html + card_2_html + card_3_html + card_4_html;
+
+            $('div#card_base_container').html(all_cards_content);
+        }
+
+        function close_ennoda_dubba(){
+            
+            $('div#card_base_container').html('');
+        }
+
+        function colog(obj){
+            console.log(obj);
+        }
+
+        function select_option(answer){
+
+            var team_name = $('#team_name').val();
+
+            colog('option_index : '+ answer);
+            socket.emit('submit-answer', {
+                team_name : team_name,
+                answer: answer
+            });
+
+            close_ennoda_dubba();
+
+            $('#my_answer').val(answer);
+        }
+
+        function show_vedhavoda_answer_dubba(answer, theme_color){
+            var card_1_html = '<div class="col-sm" style="background-color:'+theme_color+'">';
+            card_1_html    += '<div class="card" style="">';
+            card_1_html    += '<div class="card-body">';
+            card_1_html    += '<h4 class="card-title">'+answer+'</h4>';
+            card_1_html    += '<p class="card-text"></p>';
+            
+            card_1_html    += '</div>';
+            card_1_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_1_html    += '</div>';
+            card_1_html    += '</div>';
+
+            $('div#card_base_container').html(card_1_html);
+        }
+
+        // It doesn't work dynamic html; We have to find a better to way to fix this; We just use select_option method ATM
+        // $('a.option_select').click(function(){
+            
+        //     // colog('a clicked');
+
+        //     var option_index = $(this).data('option-index');
+
+        //     colog(option_index);
+
+        //     // $('input#quiz_hidden').val(option_index);
+
+        //     socket.emit('submit-answer', {
+        //         message: option_index
+        //     });
+
+        //     // find the selected card and submit it
+        // });
+
+        // $('form#quiz_form').on('submit', function (event) {
+            // var option = document.querySelector('input[name="option"]:checked').value;
+            // var checkbox_to_update = $("#options").val();
+
+            // colog('ssddsf');
+            
+            // var form = $("#options");
+            // var option = form.find("input[name=option]:checked").val();
+            // // console.log(option);
+            
+            // socket.emit('check', {
+            //     message: option
+            // })
+        // })
+
+        // $('#form1').on('submit', function (event) {
+        //     // // var option = document.querySelector('input[name="option"]:checked').value;
+        //     // // var checkbox_to_update = $("#options").val();
+        //     // var form = $("#options");
+        //     // var option = form.find("input[name=option]:checked").val();
+        //     // // console.log(option);
+        //     // socket.emit('check', {
+        //     //     message: option
+        //     // })
+        //     $('#form1').hide();
+        // })
+    </script>
+</body>
+
+</html>
