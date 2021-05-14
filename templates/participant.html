@@ -21,7 +21,159 @@
     </script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<style>
+    body
+    {
+      background-color:#f2f2f2;
+      font-family: 'RobotoDraft', 'Roboto', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    *
+    {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    
+    h5
+    {
+      margin:0px;
+      font-size:1.4em;
+      font-weight:700;
+    }
+    
+    p
+    {
+      font-size:12px;
+    }
+    
+    .center
+    {
+      height:100vh;
+      width:100%;
+      /* display: flex; */
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* End Non-Essential  */
+    
+    .property-card
+    {
+      height:18em;
+      width:14em;
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-orient:vertical;
+      -webkit-box-direction:normal;
+      -ms-flex-direction:column;
+      flex-direction:column;
+      position:relative;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      border-radius:16px;
+      overflow:hidden;
+      -webkit-box-shadow:  15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
+      box-shadow:  15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
+    }
+    /* ^-- The margin bottom is necessary for the drop shadow otherwise it gets clipped in certain cases. */
+    
+    /* Top Half of card, image. */
+    
+    .property-image
+    {
+      height:6em;
+      width:14em;
+      padding:1em 2em;
+      position:Absolute;
+      top:0px;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      background-image:url('https://cdn.photographylife.com/wp-content/uploads/2017/01/What-is-landscape-photography.jpg');
+      background-size:cover;
+      background-repeat:no-repeat;
+    }
+    
+    /* Bottom Card Section */
+    
+    .property-description
+    {
+      background-color: #FAFAFC;
+      height:12em;
+      width:14em;
+      position:absolute;
+      bottom:0em;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      padding: 0.5em 1em;
+      text-align:center;
+    }
+    
+    /* Social Icons */
+    
+    .property-social-icons
+    {
+      width:1em;
+      height:1em;
+      background-color:black;
+      position:absolute;
+      bottom:1em;
+      left:1em;
+      -webkit-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      -o-transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    
+    /* Property Cards Hover States */
+    
+    .property-card:hover .property-description
+    {
+      height:0em;
+      padding:0px 1em;
+    }
+    .property-card:hover .property-image
+    {
+      height:18em;
+    }
+    
+    .property-card:hover .property-social-icons
+    {
+      background-color:white;
+    }
+    
+    .property-card:hover .property-social-icons:hover
+    {
+      background-color:blue;
+      cursor:pointer;
+    }
+    
+    
+    /* Optional
+    
+    .property-image-title
+    {
+    text-align:center;
+    position:Relative;
+    top:30%;
+    opacity:0;
+    transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+    color:black;
+    font-size:1.2em;
+    }
+    
+    .property-card:hover .property-image-title
+    {
+    opacity:1;
+    }
+    
+    */
+    </style>
 </head>
+
 
 <body>
     <div class="container">
@@ -68,46 +220,8 @@
                 </div>
             </div>
 
-            <!-- <input type="radio" id="Option1" name="option" value="A">
-            <label for="Option1">A</label><br>
-            <input type="radio" id="Option2" name="option" value="B">
-            <label for="Option2">B</label><br>
-            <input type="radio" id="Option3" name="option" value="C">
-            <label for="Option3">C</label><br>
-            <input type="radio" id="Option4" name="option" value="D">
-            <label for="Option4">D</label><br> -->
-
             <div class="row" id="card_base_container">
-                <!-- <div class="col-sm">
-                    <div class="card" style="">
-                        <div class="card-body">
-                            <h4 class="card-title">Mars</h4>
-                            <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                            <a href="#" data-option-index="1" class="option_select btn btn-primary">Select</a>
-                        </div>
 
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="card" style="">
-                        <div class="card-body">
-                            <h4 class="card-title">Jupiter</h4>
-                            <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                            <a href="#" data-option-index="2" class="option_select btn btn-primary">Select</a>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="card" style="">
-                        <div class="card-body">
-                            <h4 class="card-title">Moon</h4>
-                            <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                            <a href="#" data-option-index="3" class="option_select btn btn-primary">Select</a>
-                        </div>
-                    
-                    </div>
-                </div> -->
             </div>
 
             <br>
@@ -157,50 +271,100 @@
             // option_1 = $.trim(option_1);
             // option_2 = $.trim(option_2);
 
+            // var card_1_html = '<div class="col-sm">';
+            // card_1_html    += '<div class="card" style="">';
+            // card_1_html    += '<div class="card-body">';
+            // card_1_html    += '<h4 class="card-title">'+option_1+'</h4>';
+            // card_1_html    += '<p class="card-text"></p>';
+            // card_1_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_1+'\');" class="option_select btn btn-primary">Select</a>';
+            // card_1_html    += '</div>';
+            // card_1_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            // card_1_html    += '</div>';
+            // card_1_html    += '</div>';
+
             var card_1_html = '<div class="col-sm">';
-            card_1_html    += '<div class="card" style="">';
-            card_1_html    += '<div class="card-body">';
-            card_1_html    += '<h4 class="card-title">'+option_1+'</h4>';
-            card_1_html    += '<p class="card-text"></p>';
-            card_1_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_1+'\');" class="option_select btn btn-primary">Select</a>';
+            card_1_html    += '<div class="center">';
+            card_1_html    += '<div class="property-card">';
+            card_1_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_1+'\');">';
+            card_1_html    += '<div class="property-image">';
+            card_1_html    += '<div class="property-image-title">';
             card_1_html    += '</div>';
-            card_1_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_1_html    += '</div></a>';
+            card_1_html    += '<div class="property-description">';
+            card_1_html    += '<h5> '+option_1+' </h5>';
+            card_1_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+            card_1_html    += '</div>';
+            card_1_html    += '<a href="#">';
+            card_1_html    += '<div class="property-social-icons">';
+            card_1_html    += '</div>';
+            card_1_html    += '</a>';
+            card_1_html    += '</div>';
             card_1_html    += '</div>';
             card_1_html    += '</div>';
 
+            
             var card_2_html = '<div class="col-sm">';
-            card_2_html    += '<div class="card" style="">';
-            card_2_html    += '<div class="card-body">';
-            card_2_html    += '<h4 class="card-title">'+option_2+'</h4>';
-            card_2_html    += '<p class="card-text"></p>';
-            card_2_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_2+'\');" class="option_select btn btn-primary">Select</a>';
+            card_2_html    += '<div class="center">';
+            card_2_html    += '<div class="property-card">';
+            card_2_html    += '<a href="#" data-option-index="2" onclick="select_option(\''+option_2+'\');">';
+            card_2_html    += '<div class="property-image">';
+            card_2_html    += '<div class="property-image-title">';
             card_2_html    += '</div>';
-            card_2_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_2_html    += '</div></a>';
+            card_2_html    += '<div class="property-description">';
+            card_2_html    += '<h5> '+option_2+' </h5>';
+            card_2_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+            card_2_html    += '</div>';
+            card_2_html    += '<a href="#">';
+            card_2_html    += '<div class="property-social-icons">';
+            card_2_html    += '</div>';
+            card_2_html    += '</a>';
             card_2_html    += '</div>';
             card_2_html    += '</div>';
+            card_2_html    += '</div>';
+
 
             var card_3_html = '<div class="col-sm">';
-            card_3_html    += '<div class="card" style="">';
-            card_3_html    += '<div class="card-body">';
-            card_3_html    += '<h4 class="card-title">'+option_3+'</h4>';
-            card_3_html    += '<p class="card-text"></p>';
-            card_3_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_3+'\');" class="option_select btn btn-primary">Select</a>';
+            card_3_html    += '<div class="center">';
+            card_3_html    += '<div class="property-card">';
+            card_3_html    += '<a href="#" data-option-index="3" onclick="select_option(\''+option_3+'\');">';
+            card_3_html    += '<div class="property-image">';
+            card_3_html    += '<div class="property-image-title">';
             card_3_html    += '</div>';
-            card_3_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_3_html    += '</div></a>';
+            card_3_html    += '<div class="property-description">';
+            card_3_html    += '<h5> '+option_3+' </h5>';
+            card_3_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+            card_3_html    += '</div>';
+            card_3_html    += '<a href="#">';
+            card_3_html    += '<div class="property-social-icons">';
+            card_3_html    += '</div>';
+            card_3_html    += '</a>';
+            card_3_html    += '</div>';
             card_3_html    += '</div>';
             card_3_html    += '</div>';
 
             var card_4_html = '<div class="col-sm">';
-            card_4_html    += '<div class="card" style="">';
-            card_4_html    += '<div class="card-body">';
-            card_4_html    += '<h4 class="card-title">'+option_4+'</h4>';
-            card_4_html    += '<p class="card-text"></p>';
-            card_4_html    += '<a href="#" data-option-index="1" onclick="select_option(\''+option_4+'\');" class="option_select btn btn-primary">Select</a>';
+            card_4_html    += '<div class="center">';
+            card_4_html    += '<div class="property-card">';
+            card_4_html    += '<a href="#" data-option-index="4" onclick="select_option(\''+option_4+'\');">';
+            card_4_html    += '<div class="property-image">';
+            card_4_html    += '<div class="property-image-title">';
             card_4_html    += '</div>';
-            card_4_html    += '<!-- <img class="card-img-bottom" src="img_avatar6.png" alt="Card image" style="width:100%"> -->';
+            card_4_html    += '</div></a>';
+            card_4_html    += '<div class="property-description">';
+            card_4_html    += '<h5> '+option_4+' </h5>';
+            card_4_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+            card_4_html    += '</div>';
+            card_4_html    += '<a href="#">';
+            card_4_html    += '<div class="property-social-icons">';
+            card_4_html    += '</div>';
+            card_4_html    += '</a>';
+            card_4_html    += '</div>';
             card_4_html    += '</div>';
             card_4_html    += '</div>';
             
+
 
             var all_cards_content = card_1_html + card_2_html + card_3_html + card_4_html;
 

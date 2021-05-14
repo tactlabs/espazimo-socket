@@ -13,6 +13,10 @@ def admin():
 def index():
     return render_template("firstpage.html")
 
+@app.route("/audience", methods = ['GET', 'POST'])
+def page_audiece():
+    return render_template("participant.html")
+
 @socketio.on('connect')
 def connected():
     print('connect')
