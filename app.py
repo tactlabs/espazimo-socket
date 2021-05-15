@@ -98,6 +98,31 @@ def is_correct_answer(q_number, my_answer):
 
     return False
 
+def updated_leaderboard(team_name, current_score):
+
+    q_json      = get_json_data()
+
+    if('leaderboard' not in q_json):
+        # create a new
+        q_json['leaderboard'] = {}
+
+    leaderboard_json = q_json['leaderboard']
+
+    if(team_name not in leaderboard_json):
+        leaderboard_json[team_name] = 0
+
+    current_score = int(current_score)
+
+    leaderboard_json[team_name] = int(leaderboard_json[team_name]) + current_score
+
+    store_json_data(q_json)
+
+def get_leaderboard():
+
+    q_json      = get_json_data()
+
+    return q_json['leaderboard']
+
 ##### API / Socket #####
 
 @app.route("/jestor", methods = ['GET', 'POST'])
@@ -125,6 +150,8 @@ def message(question_json, methods = ['GET']):
     #print(json)
 
     add_question(question_json)
+
+    print('Questions added')
     
     socketio.emit('get-question', question_json)
 
@@ -159,8 +186,10 @@ def message(json, methods = ['GET']):
 
     if(is_correct_answer(q_number, answer)):
         current_score = FIRST_ROUND_BASE_SCORE
+        
     
     add_team_score(q_number, team_name, current_score)
+    updated_leaderboard(team_name, current_score)
 
     socketio.emit('submit-answer-to-admin', json) 
 
@@ -173,6 +202,8 @@ def message(json, methods = ['GET']):
     q_number = json['q_number']
 
     question_dict = get_question(q_number)
+
+    question_dict['leaderboard'] = get_leaderboard()
 
     # print('[reveal-answers] : ', question_dict)
 

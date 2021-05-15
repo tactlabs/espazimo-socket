@@ -389,7 +389,7 @@
                 var answer = result.answer;
                 var team_name = $('#team_name').val();
 
-                var score  = result.score[team_name];
+                // var score  = result.score[team_name];
 
                 var my_answer = $('#my_answer').val();
 
@@ -401,6 +401,8 @@
                 show_vedhavoda_answer_dubba(my_answer, theme_color);
 
                 // update score
+                var leaderboard = result.leaderboard
+                var score = leaderboard[team_name]
                 $('#my_score_board').html(score);
                 
             });
