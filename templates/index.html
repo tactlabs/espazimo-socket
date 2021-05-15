@@ -204,8 +204,10 @@ body{
         });
 
         $('#reveal_answers').click(function(){
+
+            var q_number = $('#q_number').val();
             socket.emit('reveal-answers', {
-                'karuvadu' : 2
+                'q_number' : q_number
             });
         });
 

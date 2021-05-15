@@ -357,6 +357,7 @@
             });
 
             socket.on('reveal-answers', function (result) {
+                console.log(result);
                 var answer = result.answer;
 
                 var my_answer = $('#my_answer').val();

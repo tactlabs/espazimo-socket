@@ -22,6 +22,35 @@ app = Flask(__name__)
 
 socketio = SocketIO(app)
 
+# Business 
+
+FILEPATH = 'questions.json'
+
+def get_json_data():
+
+    with open(FILEPATH) as json_file:
+        data = json.load(json_file)
+        
+        # print(data)
+
+    return data
+
+def store_json_data(data):
+
+    with open(FILEPATH, 'w') as outfile:
+        json.dump(data, outfile)
+
+def add_question(question_dict):
+
+    q_number    = question_dict['q_number']
+    q_json      = get_json_data()
+
+    q_json[q_number]    = question_dict
+
+    store_json_data(q_json)
+
+##### API / Socket #####
+
 @app.route("/jestor", methods = ['GET', 'POST'])
 def admin():
     
@@ -46,8 +75,10 @@ def connected():
 def message(question_json, methods = ['GET']):
     #print(json)
     
-    question_json_local = format_dictionary(question_json)
-    write_json(question_json_local)
+    # question_json_local = format_dictionary(question_json)
+    # write_json(question_json_local)
+    add_question(question_json)
+    
     socketio.emit('message_response', question_json)
 
 # def update_json(data):
@@ -67,16 +98,22 @@ def format_dictionary(data):
     return new_dict
 
 
-def write_json(new_data, filename = 'questions.json'):
+
+# def write_json(new_data, filename = FILEPATH):
     
-    with open(filename,'r+') as file:
-        file_data = json.load(file)
-        file_data["questions"].append(new_data)
-        file.seek(0)
-        json.dump(file_data, file, indent = 4)
+#     with open(filename,'r+') as file:
+#         file_data = json.load(file)
+#         file_data["questions"].append(new_data)
+#         file.seek(0)
+#         json.dump(file_data, file, indent = 4)
  
     # python object to be appended.
 
+def get_question(q_number):
+
+    q_json = get_json_data()
+
+    return q_json[q_number]
 
 @socketio.on('submit-answer')
 def message(json, methods = ['GET']):
@@ -85,19 +122,22 @@ def message(json, methods = ['GET']):
     # socketio.emit('message_response', json)   
     socketio.emit('submit-answer-to-admin', json) 
 
-
 @socketio.on('reveal-answers')
 def message(json, methods = ['GET']):
     
     #print(json)
 
-    print('[reveal-answers]')
+    # Get the question details with answer and then publish it
+    q_number = json['q_number']
 
-    result_json = {
-        'answer' : 'Toronto'
-    }
+    # questions_json = get_json_data()
+    # questions_dict = questions_json['questions']
 
-    socketio.emit('reveal-answers', result_json)
+    question_dict = get_question(q_number)
+
+    print('[reveal-answers] : ', question_dict)
+
+    socketio.emit('reveal-answers', question_dict)
 
 # def random_name():
 #     names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars']
