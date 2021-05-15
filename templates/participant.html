@@ -394,6 +394,41 @@
 
             $('#my_answer').val(answer);
         }
+        var random_names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars'];
+
+        /*
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+          
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+          
+              // Pick a remaining element...
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex -= 1;
+          
+              // And swap it with the current element.
+              temporaryValue = array[currentIndex];
+              array[currentIndex] = array[randomIndex];
+              array[randomIndex] = temporaryValue;
+            }
+          
+            return array;
+          } */
+
+          
+          // Used like so
+          var random_names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars'];
+
+          function get_random_name(){
+            randomIndex = Math.floor(Math.random() * random_names.length);
+            return random_names[randomIndex]
+          }
+
+
+          shuffle(random_names);
+          //console.log(random_names);
+
 
         function show_vedhavoda_answer_dubba(answer, theme_color){
             var card_1_html = '<div class="col-sm" style="background-color:'+theme_color+'">';

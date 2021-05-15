@@ -1,5 +1,6 @@
 from flask import Flask , render_template
 from flask_socketio import SocketIO, emit
+import random
 
 app = Flask(__name__)
 
@@ -43,6 +44,15 @@ def message(json, methods = ['GET']):
     }
 
     socketio.emit('reveal-answers', result_json)
+
+def random_name():
+    names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars']
+
+    n = random.randint(0,2)
+
+    return names[n]
+
+
 
 if __name__ == '__main__':
     socketio.run(app, debug = True)
