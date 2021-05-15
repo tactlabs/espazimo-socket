@@ -257,7 +257,7 @@
         <div class="team-name">
             <div class="team">
                 <h4>Team Name</h4>
-                <div class="name-box">
+                <div class="name-box" id="team_name_box">
                     Team Name
                 </div>
 
@@ -330,14 +330,18 @@
 
             $( document ).ready(function() {
               console.log( "ready!" );
+
+              // get random name and update it
               var random_name = get_random_name();
               console.log(random_name);
               $('#team_name').val(random_name);
-              // get random name and update it
+              
+              
+              $('#team_name_box').html(random_name);
             });
 
             socket.on('message_response', function (result) {
-                //console.log(result);
+                console.log(result);
                 // document.getElementById("quiz-question").innerHTML = result.message;
 
                 var quiz_question = result.question;
@@ -391,7 +395,7 @@
                 card_1_html += '</div></a>';
                 card_1_html += '<div class="property-description">';
                 card_1_html += '<h5> ' + option_1 + ' </h5>';
-                card_1_html += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                card_1_html += '<p></p>';
                 card_1_html += '</div>';
                 card_1_html += '<a href="#">';
                 card_1_html += '<div class="property-social-icons">';
@@ -412,7 +416,7 @@
                 card_2_html += '</div></a>';
                 card_2_html += '<div class="property-description">';
                 card_2_html += '<h5> ' + option_2 + ' </h5>';
-                card_2_html += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                card_2_html += '<p></p>';
                 card_2_html += '</div>';
                 card_2_html += '<a href="#">';
                 card_2_html += '<div class="property-social-icons">';
@@ -433,7 +437,7 @@
                 card_3_html += '</div></a>';
                 card_3_html += '<div class="property-description">';
                 card_3_html += '<h5> ' + option_3 + ' </h5>';
-                card_3_html += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                card_3_html += '<p></p>';
                 card_3_html += '</div>';
                 card_3_html += '<a href="#">';
                 card_3_html += '<div class="property-social-icons">';
@@ -453,7 +457,7 @@
                 card_4_html += '</div></a>';
                 card_4_html += '<div class="property-description">';
                 card_4_html += '<h5> ' + option_4 + ' </h5>';
-                card_4_html += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                card_4_html += '<p></p>';
                 card_4_html += '</div>';
                 card_4_html += '<a href="#">';
                 card_4_html += '<div class="property-social-icons">';
@@ -523,7 +527,7 @@
                 card_1_html += '</div></a>';
                 card_1_html += '<div class="property-description" style="background-color:' + theme_color + '">';
                 card_1_html += '<h5> ' + answer + ' </h5>';
-                card_1_html += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                card_1_html += '<p></p>';
                 card_1_html += '</div>';
                 card_1_html += '<a href="#">';
                 card_1_html += '<div class="property-social-icons">';
@@ -543,7 +547,7 @@
                 // card_2_html    += '</div></a>';
                 // card_2_html    += '<div class="property-description">';
                 // card_2_html    += '<h5> '+answer+' </h5>';
-                // card_2_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                // card_2_html    += '<p></p>';
                 // card_2_html    += '</div>';
                 // card_2_html    += '<a href="#">';
                 // card_2_html    += '<div class="property-social-icons">';
@@ -564,7 +568,7 @@
                 // card_3_html    += '</div></a>';
                 // card_3_html    += '<div class="property-description">';
                 // card_3_html    += '<h5> '+answer+' </h5>';
-                // card_3_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                // card_3_html    += '<p></p>';
                 // card_3_html    += '</div>';
                 // card_3_html    += '<a href="#">';
                 // card_3_html    += '<div class="property-social-icons">';
@@ -584,7 +588,7 @@
                 // card_4_html    += '</div></a>';
                 // card_4_html    += '<div class="property-description">';
                 // card_4_html    += '<h5> '+answer+' </h5>';
-                // card_4_html    += '<p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>';
+                // card_4_html    += '<p></p>';
                 // card_4_html    += '</div>';
                 // card_4_html    += '<a href="#">';
                 // card_4_html    += '<div class="property-social-icons">';

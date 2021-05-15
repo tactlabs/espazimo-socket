@@ -187,22 +187,19 @@ body{
             var option_2 = $('#option_2').val();
             var option_3 = $('#option_3').val();
             var option_4 = $('#option_4').val();
-            var answer = $('#answer').val();
+            var answer   = $('#answer').val();
             var q_number = $('#q_number').val();
 
             //console.log(text);
             event.preventDefault();
             socket.emit('push-question', {
-                question: question,
                 q_number : q_number,
+                question: question,
                 option_1 : option_1,
                 option_2 : option_2,
                 option_3 : option_3,
                 option_4 : option_4,
                 answer   : answer,
-
-        
-
             });
         });
 

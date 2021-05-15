@@ -46,8 +46,8 @@ def connected():
 def message(question_json, methods = ['GET']):
     #print(json)
     
-    question_json = format_dictionary(question_json)
-    write_json(question_json)
+    question_json_local = format_dictionary(question_json)
+    write_json(question_json_local)
     socketio.emit('message_response', question_json)
 
 # def update_json(data):
