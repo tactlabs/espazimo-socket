@@ -302,6 +302,7 @@
                 <div class="col-sm">
                     <input type="text" id="team_name" placeholder="Team Name" class="form-control mb-3 mt-2" />
                     <input type="hidden" id="my_answer" />
+                    <input type="hidden" id="current_question_number" />
                 </div>
             </div>
 
@@ -340,7 +341,7 @@
               $('#team_name_box').html(random_name);
             });
 
-            socket.on('message_response', function (result) {
+            socket.on('get-question', function (result) {
                 console.log(result);
                 // document.getElementById("quiz-question").innerHTML = result.message;
 
@@ -348,6 +349,11 @@
                 $("#quiz-question").html(quiz_question);
 
                 var option_1 = result.option_1;
+
+                // update q_number
+                q_number = result['q_number'];
+                $('#current_question_number').val(q_number);
+
 
                 // update the cards
                 var option_2 = result.option_2;
@@ -487,9 +493,11 @@
             function select_option(answer) {
 
                 var team_name = $('#team_name').val();
+                var q_number  = $('#current_question_number').val();
 
                 colog('option_index : ' + answer);
                 socket.emit('submit-answer', {
+                    q_number : q_number,
                     team_name: team_name,
                     answer: answer
                 });

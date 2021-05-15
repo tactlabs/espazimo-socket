@@ -24,7 +24,8 @@ socketio = SocketIO(app)
 
 # Business 
 
-FILEPATH = 'questions.json'
+FILEPATH                = 'questions.json'
+FIRST_ROUND_BASE_SCORE  = 5
 
 def get_json_data():
 
@@ -48,6 +49,54 @@ def add_question(question_dict):
     q_json[q_number]    = question_dict
 
     store_json_data(q_json)
+
+def add_team_answer(q_number, team_name, answer):
+
+    q_json      = get_json_data()
+
+    current_q_json = q_json[q_number]
+
+    # team_answer_dict = current_q_json['team_answers']
+
+    if('team_answers' not in current_q_json):
+        # create a new
+        current_q_json['team_answers'] = {}
+
+    current_q_json['team_answers'][team_name] = answer
+
+    store_json_data(q_json)
+
+def add_team_score(q_number, team_name, score):
+
+    q_json      = get_json_data()
+
+    current_q_json = q_json[q_number]
+
+    # team_answer_dict = current_q_json['team_answers']
+
+    if('score' not in current_q_json):
+        # create a new
+        current_q_json['score'] = {}
+
+    current_q_json['score'][team_name] = score
+
+    store_json_data(q_json)
+
+def is_correct_answer(q_number, my_answer):
+
+    q_json      = get_json_data()
+
+    current_q_json = q_json[q_number]
+
+    base_answer = current_q_json['answer']
+    base_answer = base_answer.lower()
+    
+    my_answer = my_answer.lower()
+
+    if(my_answer == base_answer):
+        return True
+
+    return False
 
 ##### API / Socket #####
 
@@ -74,20 +123,10 @@ def connected():
 @socketio.on('push-question')
 def message(question_json, methods = ['GET']):
     #print(json)
-    
-    # question_json_local = format_dictionary(question_json)
-    # write_json(question_json_local)
+
     add_question(question_json)
     
-    socketio.emit('message_response', question_json)
-
-# def update_json(data):
-#     json_file = open("questions.json")
-#     json_data = json.load(json_file)
-#     json_data.update(data)
-#     with open('questions.json','w') as questions :
-#         json.dump(json_data,questions)
-#     return 0
+    socketio.emit('get-question', question_json)
 
 def format_dictionary(data):
     
@@ -98,17 +137,6 @@ def format_dictionary(data):
     return new_dict
 
 
-
-# def write_json(new_data, filename = FILEPATH):
-    
-#     with open(filename,'r+') as file:
-#         file_data = json.load(file)
-#         file_data["questions"].append(new_data)
-#         file.seek(0)
-#         json.dump(file_data, file, indent = 4)
- 
-    # python object to be appended.
-
 def get_question(q_number):
 
     q_json = get_json_data()
@@ -118,8 +146,22 @@ def get_question(q_number):
 @socketio.on('submit-answer')
 def message(json, methods = ['GET']):
     
-    print(json)
-    # socketio.emit('message_response', json)   
+    # print(json)  
+
+    # add_team_answer
+    q_number    = json['q_number']
+    team_name   = json['team_name']
+    answer      = json['answer']
+    add_team_answer(q_number, team_name, answer)
+
+    # add team score
+    current_score = 0
+
+    if(is_correct_answer(q_number, answer)):
+        current_score = FIRST_ROUND_BASE_SCORE
+    
+    add_team_score(q_number, team_name, current_score)
+
     socketio.emit('submit-answer-to-admin', json) 
 
 @socketio.on('reveal-answers')
@@ -130,23 +172,11 @@ def message(json, methods = ['GET']):
     # Get the question details with answer and then publish it
     q_number = json['q_number']
 
-    # questions_json = get_json_data()
-    # questions_dict = questions_json['questions']
-
     question_dict = get_question(q_number)
 
     print('[reveal-answers] : ', question_dict)
 
     socketio.emit('reveal-answers', question_dict)
-
-# def random_name():
-#     names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars']
-
-#     n = random.randint(0,2)
-
-#     return names[n]
-
-
 
 if __name__ == '__main__':
     
