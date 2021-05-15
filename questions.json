@@ -1,19 +1,24 @@
-{   "users": [
-    {
-    "question": "tera3",
-    "option_1": "12",
-    "option_2": "32",
-    "option_3": "31",
-    "option_4": "4s",
-    "answer": "12"
-    },
-    {
-    "question": "tera23",
-    "option_1": "123",
-    "option_2": "312",
-    "option_3": "321",
-    "option_4": "4ss",
-    "answer": "1a2"
-}
-]
+{
+    "questions": [
+        {
+            "1": {
+                "question": "best city??",
+                "options1": "chennai",
+                "options2": "rio",
+                "options3": "NY",
+                "options4": "Sydney",
+                "answer": "sydney"
+            }
+        },
+        {
+            "2": {
+                "question": "best food??",
+                "options1": "rice",
+                "options2": "noodles",
+                "options3": "pasta",
+                "options4": "tortilaa",
+                "answer": "pasta"
+            }
+        }
+    ]
 }
