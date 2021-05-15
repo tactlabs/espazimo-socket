@@ -1,3 +1,18 @@
+
+'''
+Created on 
+    March 26, 2021
+
+Course work: 
+    Python Snippet Collection
+
+@author: Serkinti Team
+
+Source:
+    
+'''
+
+# Import necessary modules
 from flask import Flask , render_template
 from flask_socketio import SocketIO, emit
 import random
@@ -9,26 +24,31 @@ socketio = SocketIO(app)
 
 @app.route("/jestor", methods = ['GET', 'POST'])
 def admin():
+    
     return render_template("index.html")
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
+    
     return render_template("firstpage.html")
 
 @app.route("/audience", methods = ['GET', 'POST'])
 def page_audiece():
+    
     return render_template("participant.html")
 
 @socketio.on('connect')
 def connected():
+    
     print('connect')
 
 @socketio.on('push-question')
-def message(jestor_push, methods = ['GET']):
+def message(question_json, methods = ['GET']):
     #print(json)
-    jestor_push = dict_formatter(jestor_push)
-    write_json(jestor_push)
-    socketio.emit('message_response', jestor_push)
+    
+    question_json = format_dictionary(question_json)
+    write_json(question_json)
+    socketio.emit('message_response', question_json)
 
 # def update_json(data):
 #     json_file = open("questions.json")
@@ -38,23 +58,17 @@ def message(jestor_push, methods = ['GET']):
 #         json.dump(json_data,questions)
 #     return 0
 
-def dict_formatter(data):
+def format_dictionary(data):
+    
     new_dict = {
-	data["q_number"] : {
-		"question" : data["question"],
-		"options1" : data["option_1"],
-        "options2" : data["option_2"],
-        "options3" : data["option_3"],
-        "options4" : data["option_4"],
-        "answer"   : data["answer"]
-    }
-		
+        data["q_number"] : data
 	}
 
     return new_dict
 
 
-def write_json(new_data, filename='questions.json'):
+def write_json(new_data, filename = 'questions.json'):
+    
     with open(filename,'r+') as file:
         file_data = json.load(file)
         file_data["questions"].append(new_data)
@@ -66,6 +80,7 @@ def write_json(new_data, filename='questions.json'):
 
 @socketio.on('submit-answer')
 def message(json, methods = ['GET']):
+    
     print(json)
     # socketio.emit('message_response', json)   
     socketio.emit('submit-answer-to-admin', json) 
@@ -73,6 +88,7 @@ def message(json, methods = ['GET']):
 
 @socketio.on('reveal-answers')
 def message(json, methods = ['GET']):
+    
     #print(json)
 
     print('[reveal-answers]')
@@ -93,4 +109,5 @@ def message(json, methods = ['GET']):
 
 
 if __name__ == '__main__':
+    
     socketio.run(app, debug = True)
