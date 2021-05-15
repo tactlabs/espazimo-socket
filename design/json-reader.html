@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-GB">
+    <!--
+        https://api.jquery.com/jquery.getJSON/
+    -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="An example pen showing how a basic CSS Grid container can create a nice, responsive card layout.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CSS Grid Cards</title>
+    <!-- <link href="mcards.css" rel="stylesheet" /> -->
+  </head>
+
+<body>
+    <div class="container">
+
+
+        <div class="row">
+            <div class="container">
+                <h1>Json Reader</h1>
+                <p></p>
+              </div>
+        </div>
+
+        <br><br><br><br><br><br>
+
+    </div>
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+
+$( document ).ready(function() {
+  console.log( "ready!" );
+
+  $.getJSON( "name.json", function( data ) {
+    var items = [];
+
+    var names = data['names'];
+
+    names.forEach(function(name){
+      console.log(name);
+    });
+
+    // $.each( data, function( key, val ) {
+    //   // items.push( "<li id='" + key + "'>" + val + "</li>" );
+    //   var names = data[]
+    //   console.log();
+    // });
+  
+    $( "<ul/>", {
+      "class": "my-new-list",
+      html: items.join( "" )
+    }).appendTo( "body" );
+  });
+});
+
+</script>
+</body>
+  
+</html>
+
+
