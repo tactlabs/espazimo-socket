@@ -266,7 +266,7 @@
         <div class="score-board">
             <div class="player">
                 <h4>Score Board</h4>
-                <div class="score-box">
+                <div class="score-box" id="my_score_board">
                     0
                 </div>
             </div>
@@ -322,6 +322,27 @@
 
 
         <script>
+            var random_names = [
+                'Stupendous Saturn', 
+                'jolly Jupiter', 
+                'Marvelous Mars',
+                'Earthen Star',
+                'Space Dream',
+                'Rocket Launchers',
+                'Space Hellsink',
+                'Meteor Bash',
+                'Sun Punch',
+                'Milky Hellsink',
+                'Goal Galaxy',
+                'Ideal Astronauts',
+                'Biosatellite Blasters',
+                'Super Sputnik',
+                'Marshy Mars',
+                'Deimos Daredevils',
+                'Chocolate Charon',
+                'Marshmallow Mars'
+            ];
+
             var socket = io.connect('http://' + document.domain + ':' + location.port);
 
             socket.on('connect',
@@ -364,7 +385,11 @@
 
             socket.on('reveal-answers', function (result) {
                 console.log(result);
+                
                 var answer = result.answer;
+                var team_name = $('#team_name').val();
+
+                var score  = result.score[team_name];
 
                 var my_answer = $('#my_answer').val();
 
@@ -374,6 +399,10 @@
                 }
 
                 show_vedhavoda_answer_dubba(my_answer, theme_color);
+
+                // update score
+                $('#my_score_board').html(score);
+                
             });
 
             function update_cards(option_1, option_2, option_3, option_4) {
@@ -507,7 +536,7 @@
                 $('#my_answer').val(answer);
             }
           
-            var random_names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars'];
+            
 
             function get_random_name(){
               randomIndex = Math.floor(Math.random() * random_names.length);
