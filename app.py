@@ -1,12 +1,13 @@
 from flask import Flask , render_template
 from flask_socketio import SocketIO, emit
 import random
+import json
 
 app = Flask(__name__)
 
 socketio = SocketIO(app)
 
-@app.route("/admin", methods = ['GET', 'POST'])
+@app.route("/jestor", methods = ['GET', 'POST'])
 def admin():
     return render_template("index.html")
 
@@ -23,15 +24,18 @@ def connected():
     print('connect')
 
 @socketio.on('push-question')
-def message(json, methods = ['GET']):
+def message(json1, methods = ['GET']):
     #print(json)
-    socketio.emit('message_response', json)
+    with open('questions.json','w') as questions :
+        json.dump(json1,questions)
+    socketio.emit('message_response', json1)
 
 @socketio.on('submit-answer')
 def message(json, methods = ['GET']):
     print(json)
     # socketio.emit('message_response', json)   
     socketio.emit('submit-answer-to-admin', json) 
+
 
 @socketio.on('reveal-answers')
 def message(json, methods = ['GET']):

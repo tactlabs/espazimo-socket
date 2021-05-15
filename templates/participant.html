@@ -239,6 +239,10 @@
 
         $( document ).ready(function() {
           console.log( "ready!" );
+          var random_name = get_random_name();
+          console.log(random_name);
+          $('#team_name').val(random_name);
+
 
           // get random name and update it
         });
@@ -424,7 +428,6 @@
 
           
           // Used like so
-          var random_names = ['stupendous_saturn', 'jolly_jupiter', 'marvelous_mars'];
 
           function get_random_name(){
             randomIndex = Math.floor(Math.random() * random_names.length);
