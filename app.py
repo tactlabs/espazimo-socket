@@ -174,7 +174,7 @@ def message(json, methods = ['GET']):
 
     question_dict = get_question(q_number)
 
-    print('[reveal-answers] : ', question_dict)
+    # print('[reveal-answers] : ', question_dict)
 
     socketio.emit('reveal-answers', question_dict)
 
