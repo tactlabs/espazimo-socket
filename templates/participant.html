@@ -233,9 +233,15 @@
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
         socket.on('connect',
-            function () {
-                console.log('Client Connected')
-            });
+          function () {
+              console.log('Client Connected')
+        });
+
+        $( document ).ready(function() {
+          console.log( "ready!" );
+
+          // get random name and update it
+        });
 
         socket.on('message_response', function (result) {
             //console.log(result);
