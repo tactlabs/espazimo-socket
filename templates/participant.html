@@ -149,8 +149,8 @@
         }
 
         .score-board {
-            text-align: left;
-            padding-left: 50px;
+            text-align: right;
+            padding-right: 300px;
             padding-top: 30px;
         }
 
@@ -167,16 +167,45 @@
             border: 3px solid black;
             padding: 30px;
             color: #2CB3C9;
-            /* align-items:left; */
 
         }
-        .block{
-            
+        /* .team-name {
+            text-align:left;
+            padding-left: 350px;
+            padding-bottom: 50rem;
+            float: left;
+        }
+
+        .team {
+            padding-left: 10px;
+            top: 0%;
+        }
+
+        .team h4 {
+            font-weight: bold;
+        }
+
+        .name-box {
+            border: 3px solid black;
+            padding: 30px;
+            color: #2CB3C9;
+            float: top;
+
+        } */
+
+
+        .block {
+
             align-items: right;
         }
 
+        .box {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
 
-        /* Optional
+            /* Optional
     
     .property-image-title
     {
@@ -221,13 +250,22 @@
 
     <div class="score-board">
         <div class="player">
-            <h4>Player 1</h4>
+            <h4>Score Board</h4>
             <div class="score-box">
-                15
+                0
             </div>
 
         </div>
     </div>
+    <!-- <div class="team-name">
+        <div class="team">
+            <h4>Team Name</h4>
+            <div class="name-box">
+                Team Name
+            </div>
+
+        </div>
+    </div> -->
     <div class="block">
         <div class="container mt-5 mb-5">
             <div class="card">
@@ -242,6 +280,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="box">
+            <img src="static/Ospaceshield.png" width="250" height="250">
+        </div>
+
+
 
         <div class="container">
             <!-- <form action="" id="quiz_form" method="POST">
