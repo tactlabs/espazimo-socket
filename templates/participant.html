@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>Espazimos | Audience</title>
+    <title>Espazimos | Participants</title>
     <!-- JavaScript SocketIO -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -242,22 +242,13 @@
 <body>
     <div class="container">
 
-
         <div class="row">
             <div class="container">
-                <!-- <h1>Espazimos</h1> -->
                 <p></p>
             </div>
         </div>
     </div>
 
-
-    <!-- <form action="" id='form1'>
-        <label for="team-name">Enter your team name</label>
-        <input type="text" id='team-name' required>
-        <input type="submit" id="submit-name" value="submit">
-
-    </form> -->
     <div class="team-score"> 
         <div class="team-name">
             <div class="team">
@@ -302,16 +293,7 @@
             </div>
         </div>
 
-        <!-- <div class="box">
-            <img src="static/Ospaceshield.png" width="250" height="250">
-        </div> -->
-
-
-
         <div class="container">
-            <!-- <form action="" id="quiz_form" method="POST">
-                <input type="hidden" id="quiz_hidden" value="NA" />
-            </form> -->
 
             <div class="row">
                 <div class="col-sm">
@@ -322,24 +304,16 @@
             </div>
 
             <div class="row" id="card_base_container">
-
-                <!-- </div>
-            <div class="row" id="answer_base_container">
-
-            </div> -->
-
-
                 <br>
-                <!-- <input type="submit" class="btn btn-primary" id="submit-option" value="submit"> -->
-                </form>
             </div>
         </div>
 
 
         <script>
+
             var random_names = [
                 'Stupendous Saturn', 
-                'jolly Jupiter', 
+                'Jolly Jupiter', 
                 'Marvelous Mars',
                 'Earthen Star',
                 'Space Dream',
@@ -358,6 +332,45 @@
                 'Marshmallow Mars'
             ];
 
+            // TODO: This is NOT working as we expected; Please fix this when you get time
+            $( document ).ready(function() {
+
+                $.getJSON( "static/name.json", function( data ) {
+                    var items = [];
+
+                    var names = data['names'];
+
+                    names.forEach(function(name){
+                        // console.log(name);
+                        // random_names.push(name);
+                    });
+
+                    // $.each( data, function( key, val ) {
+                    //   // items.push( "<li id='" + key + "'>" + val + "</li>" );
+                    //   var names = data[]
+                    //   console.log();
+                    // });
+                
+                    // $( "<ul/>", {
+                    // "class": "my-new-list",
+                    //     html: items.join( "" )
+                    // }).appendTo( "body" );
+
+                    
+                });
+
+                // get random name and update it
+                var random_name = get_random_name();
+                //   console.log(random_name);
+                $('#team_name').val(random_name);
+                
+                
+                $('#team_name_box').html(random_name);
+
+            });
+
+            
+
             var socket = io.connect('http://' + document.domain + ':' + location.port);
 
             socket.on('connect',
@@ -368,13 +381,7 @@
             $( document ).ready(function() {
               console.log( "ready!" );
 
-              // get random name and update it
-              var random_name = get_random_name();
-            //   console.log(random_name);
-              $('#team_name').val(random_name);
               
-              
-              $('#team_name_box').html(random_name);
             });
 
             socket.on('get-question', function (result) {
