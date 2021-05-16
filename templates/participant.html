@@ -355,7 +355,7 @@
 
               // get random name and update it
               var random_name = get_random_name();
-              console.log(random_name);
+            //   console.log(random_name);
               $('#team_name').val(random_name);
               
               
@@ -363,7 +363,7 @@
             });
 
             socket.on('get-question', function (result) {
-                console.log(result);
+                // console.log(result);
                 // document.getElementById("quiz-question").innerHTML = result.message;
 
                 var quiz_question = result.question;
@@ -384,7 +384,7 @@
             });
 
             socket.on('reveal-answers', function (result) {
-                console.log(result);
+                // console.log(result);
                 
                 var answer = result.answer;
                 var team_name = $('#team_name').val();
@@ -526,7 +526,7 @@
                 var team_name = $('#team_name').val();
                 var q_number  = $('#current_question_number').val();
 
-                colog('option_index : ' + answer);
+                // colog('option_index : ' + answer);
                 socket.emit('submit-answer', {
                     q_number : q_number,
                     team_name: team_name,
