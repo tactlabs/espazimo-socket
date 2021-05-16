@@ -129,14 +129,25 @@ def get_leaderboard():
 
         return result
 
+    sorted_leadboard = sort_dict_reverse(q_json['leaderboard'])
+
     result = {
         'error_code'    : 0,
         'error_message' : 'NA',
 
-        'leaderboard' : q_json['leaderboard']
+        'leaderboard'   : sorted_leadboard
     }
 
     return result
+
+def sort_dict_reverse(mydic):
+
+    mydict = sorted(mydic, key = mydic.get, reverse = True)
+
+    # for w in sorted(mydic, key = mydic.get, reverse = True):
+    #     print(w, mydic[w])
+
+    return mydict
 
 ##### API / Socket #####
 
