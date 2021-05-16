@@ -43,7 +43,12 @@
 
         p {
             font-size: 12px;
-            color: blue;
+            /* color: blue; */
+        }
+
+        p.timer {
+            font-size: 15px;
+            /* color: blue; */
         }
 
         h1 {
@@ -263,6 +268,16 @@
 
             </div>
         </div>
+        
+        <div class="score-board">
+            <div class="player">
+                <h4>Timer</h4>
+                <div class="score-box">
+                    <p id="timer_box" class="timer"></p>
+                </div>
+            </div>
+        </div>
+
         <div class="score-board">
             <div class="player">
                 <h4>Score Board</h4>
@@ -270,11 +285,11 @@
                     0
                 </div>
             </div>
-            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm">
-            <p id="demo" class="timer"></p>
+            
         </div>
         
       </div>
@@ -718,16 +733,23 @@
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 
-            // Output the result in an element with id="demo"
-            //document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+            // Output the result in an element with id="timer_box"
+            //document.getElementById("timer_box").innerHTML = days + "d " + hours + "h "
             // + minutes + "m " + seconds + "s ";
     
-            document.getElementById("demo").innerHTML =  minutes + "m " + seconds + "s ";
+            // document.getElementById("timer_box").innerHTML =  minutes + "m " + seconds + "s ";
+            var timer_content = ""
+            if(minutes < 1){
+                timer_content = seconds + "s ";
+            }
+            
+            $('#timer_box').html(timer_content);
                 
             // If the count down is over, write some text 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "Time's UP";
+                // document.getElementById("timer_box").innerHTML = "Time's UP";
+                $('#timer_box').html("Time's UP");
             }
             }, 1000);
         }
