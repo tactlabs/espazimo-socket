@@ -128,12 +128,12 @@ def get_leaderboard():
 @app.route("/jestor", methods = ['GET', 'POST'])
 def admin():
     
-    return render_template("index.html")
+    return render_template("admin.html")
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
     
-    return render_template("firstpage.html")
+    return render_template("home.html")
 
 @app.route("/audience", methods = ['GET', 'POST'])
 def page_audiece():
