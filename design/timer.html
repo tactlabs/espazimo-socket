@@ -30,6 +30,9 @@ p.timer {
             <div class="col-sm">
                 <p id="demo" class="timer"></p>
             </div>
+            <div>
+                <button id="reset_button">Reset</button>
+            </div>
           </div>
     </div>
 
@@ -43,12 +46,19 @@ $( document ).ready(function() {
     
     console.log( "ready!" );
 
-    start_timer();
+    $("#reset_button").click(function(){
+        console.log("reset");
+        start_timer();
+    })
+
+    //start_timer();
     
     function start_timer(){
 
         // Set the date we're counting down to
-            var countDownDate = new Date("May 16, 2021 5:37:25").getTime();
+        //var countDownDate = new Date("May 16, 2021 14:59:00").getTime();
+
+        var countDownDate  = get_target_time()
 
         // Update the count down every 1 second
         var x = setInterval(function() {
@@ -66,15 +76,22 @@ $( document ).ready(function() {
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
         // Output the result in an element with id="demo"
-        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
+        //document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+        // + minutes + "m " + seconds + "s ";
+
+        document.getElementById("demo").innerHTML =  minutes + "m " + seconds + "s ";
             
         // If the count down is over, write some text 
         if (distance < 0) {
             clearInterval(x);
-            document.getElementById("demo").innerHTML = "EXPIRED";
+            document.getElementById("demo").innerHTML = "Time's UP";
         }
         }, 1000);
+    }
+    function get_target_time() {
+        var countDownDate =  new Date().getTime() + 61000;
+
+        return countDownDate
     }
     
 });
