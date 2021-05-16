@@ -303,9 +303,11 @@ $( document ).ready(function() {
         // colog('Client Connected');
     });
 
-    socket.emit('get-leaderboard', {
-        'one' : 'two'
-    });
+    setInterval(function(){
+        socket.emit('get-leaderboard', {
+            'one' : 'two'
+        });
+    }, 3000);
 
     socket.on('get-leaderboard', function (result) {
         // colog('Inside leaderboard');   
