@@ -43,7 +43,12 @@
 
         p {
             font-size: 12px;
-            color: blue;
+            /* color: blue; */
+        }
+
+        p.timer {
+            font-size: 15px;
+            /* color: blue; */
         }
 
         h1 {
@@ -263,6 +268,16 @@
 
             </div>
         </div>
+        
+        <div class="score-board">
+            <div class="player">
+                <h4>Timer</h4>
+                <div class="score-box">
+                    <p id="timer_box" class="timer"></p>
+                </div>
+            </div>
+        </div>
+
         <div class="score-board">
             <div class="player">
                 <h4>Score Board</h4>
@@ -270,8 +285,14 @@
                     0
                 </div>
             </div>
-            </div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-sm">
+            
+        </div>
+        
+      </div>
     <div class="block">
         <div class="container mt-5 mb-5">
             <div class="card">
@@ -381,6 +402,8 @@
                 var option_3 = result.option_3;
                 var option_4 = result.option_4;
                 update_cards(option_1, option_2, option_3, option_4);
+
+                start_timer();
             });
 
             socket.on('reveal-answers', function (result) {
@@ -687,6 +710,55 @@
         //     // })
         //     $('#form1').hide();
         // })
+
+        function start_timer(){
+
+            // Set the date we're counting down to
+            //var countDownDate = new Date("May 16, 2021 14:59:00").getTime();
+    
+            var countDownDate  = get_target_time()
+    
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+    
+            // Get today's date and time
+            var now = new Date().getTime();
+                
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+                
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+            // Output the result in an element with id="timer_box"
+            //document.getElementById("timer_box").innerHTML = days + "d " + hours + "h "
+            // + minutes + "m " + seconds + "s ";
+    
+            // document.getElementById("timer_box").innerHTML =  minutes + "m " + seconds + "s ";
+            var timer_content = ""
+            if(minutes < 1){
+                timer_content = seconds + "s ";
+            }
+            
+            $('#timer_box').html(timer_content);
+                
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                // document.getElementById("timer_box").innerHTML = "Time's UP";
+                $('#timer_box').html("Time's UP");
+            }
+            }, 1000);
+        }
+        function get_target_time() {
+            var countDownDate =  new Date().getTime() + 61000;
+    
+            return countDownDate
+        }
+
         </script>
 </body>
 
