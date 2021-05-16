@@ -235,6 +235,29 @@
     }
     
     */
+
+    table.customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table.customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    table.customers tr:nth-child(even){background-color: #f2f2f2;}
+
+    table.customers tr:hover {background-color: #ddd;}
+
+    table.customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
     </style>
 </head>
 
@@ -249,65 +272,25 @@
         </div>
     </div>
 
-    <div class="team-score"> 
-        <div class="team-name">
-            <div class="team">
-                <h4>Team Name</h4>
-                <div class="name-box" id="team_name_box">
-                    Team Name
-                </div>
+    <br><br><br><br>
 
-            </div>
-        </div>
-        
-        <div class="score-board">
-            <div class="player">
-                <h4>Timer</h4>
-                <div class="score-box">
-                    <p id="timer_box" class="timer"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="score-board">
-            <div class="player">
-                <h4>Score Board</h4>
-                <div class="score-box" id="my_score_board">
-                    0
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="block">
         <div class="container mt-5 mb-5">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    ESPAZIMO
+                    ESPAZIMOS
                 </div>
                 <div class="card-body">
                     <div class="container">
-                        <pre id="quiz-question">
-                    </pre>
+                        <table id="leaderboard_tbl" class="customers">
+                    
+                        </table>
+                    
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-sm">
-                    <input type="text" id="team_name" placeholder="Team Name" class="form-control mb-3 mt-2" />
-                    <input type="hidden" id="my_answer" />
-                    <input type="hidden" id="current_question_number" />
-                </div>
-            </div>
-
-            <div class="row" id="card_base_container">
-                <br>
-            </div>
-        </div>
-
+    </div>
 
 <script>
 
@@ -317,12 +300,52 @@ $( document ).ready(function() {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
     socket.on('connect', function () {
-        console.log('Client Connected');
+        // colog('Client Connected');
+    });
+
+    socket.emit('get-leaderboard', {
+        'one' : 'two'
     });
 
     socket.on('get-leaderboard', function (result) {
-         console.log('Inside leaderboard');       
+        // colog('Inside leaderboard');   
+        
+        colog(result);
+
+        var leaderboard = result.leaderboard;
+
+        if(result.error_code == 0){
+            update_leaderboard(leaderboard);
+        }
     });
+
+    function update_leaderboard(leaderboard){
+        
+        var content = "";
+
+        content    += "<tr>";
+        content    += "<td>Team Name</td>";
+        content    += "<td>Score</td>";
+        content    += "</tr>";
+
+        for (var key in leaderboard) {
+            // check if the property/key is defined in the object itself, not in parent
+            if (leaderboard.hasOwnProperty(key)) {           
+                // console.log(key, leaderboard[key]);
+
+                content    += "<tr>";
+                content    += "<td>" + key + "</td>";
+                content    += "<td>" + leaderboard[key] + "</td>";
+                content    += "</tr>";
+            }
+        }
+
+        $('table#leaderboard_tbl').html(content);
+    }
+
+    function colog(obj){
+        console.log(obj); 
+    }
 
 });
 

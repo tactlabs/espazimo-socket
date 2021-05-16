@@ -121,7 +121,22 @@ def get_leaderboard():
 
     q_json      = get_json_data()
 
-    return q_json['leaderboard']
+    if('leaderboard' not in q_json):
+        result = {
+            'error_code'    : 1892,
+            'error_message' : 'Result Not Available'
+        }
+
+        return result
+
+    result = {
+        'error_code'    : 0,
+        'error_message' : 'NA',
+
+        'leaderboard' : q_json['leaderboard']
+    }
+
+    return result
 
 ##### API / Socket #####
 
@@ -139,6 +154,11 @@ def index():
 def page_audiece():
     
     return render_template("participant.html")
+
+@app.route("/public", methods = ['GET'])
+def page_public():
+    
+    return render_template("public.html")
 
 @socketio.on('connect')
 def connected():
@@ -209,6 +229,13 @@ def message(json, methods = ['GET']):
 
     socketio.emit('reveal-answers', question_dict)
 
+@socketio.on('get-leaderboard')
+def sock_get_leaderboard(json, methods = ['GET']):
+
+    result = get_leaderboard()
+
+    socketio.emit('get-leaderboard', result)
+
 if __name__ == '__main__':
-    
+
     socketio.run(app, debug = True)
