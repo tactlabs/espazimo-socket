@@ -129,13 +129,13 @@ def get_leaderboard():
 
         return result
 
-    sorted_leadboard = sort_dict_reverse(q_json['leaderboard'])
+    # sorted_leadboard = sort_dict_reverse(q_json['leaderboard'])
 
     result = {
         'error_code'    : 0,
         'error_message' : 'NA',
 
-        'leaderboard'   : sorted_leadboard
+        'leaderboard'   : q_json['leaderboard']
     }
 
     return result
