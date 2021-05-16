@@ -1,1 +1,1 @@
-{"1": {"q_number": "1", "question": "Fin", "option_1": "Toronto", "option_2": "Montreal", "option_3": "Chennai", "option_4": "Quebec", "answer": "Toronto", "team_answers": {"stupendous_saturn": "Quebec", "marvelous_mars": "Toronto"}, "score": {"stupendous_saturn": 0, "marvelous_mars": 5}}}
+{"1": {"q_number": "1", "question": "city", "option_1": "ontario", "option_2": "chennai", "option_3": "hyderabad", "option_4": "madurai", "answer": "chennai"}}
