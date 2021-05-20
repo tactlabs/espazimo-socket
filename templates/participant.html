@@ -28,6 +28,7 @@
             font-family: 'RobotoDraft', 'Roboto', sans-serif;
             -webkit-font-smoothing: antialiased;
             background-size: cover;
+            position: static;
         }
 
         * {
@@ -94,7 +95,7 @@
             height: 6em;
             width: 14em;
             padding: 1em 2em;
-            position: Absolute;
+            position: absolute;
             top: 0px;
             -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
             -o-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -177,7 +178,7 @@
 
         .team-name {
             text-align: left;
-             padding-left:  70px; 
+            padding-left: 70px;
             padding-top: 30px;
             float: left;
 
@@ -199,6 +200,7 @@
             float: top;
 
         }
+
         .team-score {
             display: flex;
             justify-content: space-between;
@@ -210,36 +212,66 @@
             align-items: right;
         }
 
-        /* .box {
+        .leaderboard {
+            text-align: left;
+            padding-left: 0px;
+            vertical-align: top;
+            float: left;
             position: fixed;
-            padding-top: 50px; 
-            padding-left: 30;
-        } */
+            z-index: 1;
+            top: 200px;
+            left: 20px;
+        }
 
-        /* Optional
-    
-    .property-image-title
-    {
-    text-align:center;
-    position:Relative;
-    top:30%;
-    opacity:0;
-    transition:all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
-    color:black;
-    font-size:1.2em;
-    }
-    
-    .property-card:hover .property-image-title
-    {
-    opacity:1;
-    }
-    
-    */
+        * {
+            font-family: sans-serif;
+        }
+
+        .content-table {
+            border-collapse: collapse;
+            margin: 0px 0;
+            font-size: 0.9em;
+            min-width: 320px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+        }
+
+        .content-table thead tr {
+            background-color: rgb(139, 209, 34);
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+        }
+
+        .content-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .content-table tbody tr:last-of-type {
+            border-bottom: 2px solid greenyellow;
+        }
+
+        .content-table tbody tr.active-row {
+            font-weight: bold;
+            color: black;
+        }
     </style>
 </head>
 
 
 <body>
+
     <div class="container">
 
         <div class="row">
@@ -249,7 +281,7 @@
         </div>
     </div>
 
-    <div class="team-score"> 
+    <div class="team-score">
         <div class="team-name">
             <div class="team">
                 <h4>Team Name</h4>
@@ -259,7 +291,7 @@
 
             </div>
         </div>
-        
+
         <div class="score-board">
             <div class="player">
                 <h4>Timer</h4>
@@ -307,13 +339,48 @@
                 <br>
             </div>
         </div>
+        <div class="team-score">
+            <div class="leaderboard">
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team Name</th>
+                            <th>Points</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Domenic</td>
+                            <td>88,110</td>
+
+                        </tr>
+                        <tr class="active-row">
+                            <td>2</td>
+                            <td>Sally</td>
+                            <td>72,400</td>
+
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Nick</td>
+                            <td>52,300</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
 
         <script>
 
             var random_names = [
-                'Stupendous Saturn', 
-                'Jolly Jupiter', 
+                'Stupendous Saturn',
+                'Jolly Jupiter',
                 'Marvelous Mars',
                 'Earthen Star',
                 'Space Dream',
@@ -333,14 +400,14 @@
             ];
 
             // TODO: This is NOT working as we expected; Please fix this when you get time
-            $( document ).ready(function() {
+            $(document).ready(function () {
 
-                $.getJSON( "static/name.json", function( data ) {
+                $.getJSON("static/name.json", function (data) {
                     var items = [];
 
                     var names = data['names'];
 
-                    names.forEach(function(name){
+                    names.forEach(function (name) {
                         // console.log(name);
                         // random_names.push(name);
                     });
@@ -350,38 +417,38 @@
                     //   var names = data[]
                     //   console.log();
                     // });
-                
+
                     // $( "<ul/>", {
                     // "class": "my-new-list",
                     //     html: items.join( "" )
                     // }).appendTo( "body" );
 
-                    
+
                 });
 
                 // get random name and update it
                 var random_name = get_random_name();
                 //   console.log(random_name);
                 $('#team_name').val(random_name);
-                
-                
+
+
                 $('#team_name_box').html(random_name);
 
             });
 
-            
+
 
             var socket = io.connect('http://' + document.domain + ':' + location.port);
 
             socket.on('connect',
-              function () {
-                  console.log('Client Connected')
-            });
+                function () {
+                    console.log('Client Connected')
+                });
 
-            $( document ).ready(function() {
-              console.log( "ready!" );
+            $(document).ready(function () {
+                console.log("ready!");
 
-              
+
             });
 
             socket.on('get-question', function (result) {
@@ -409,7 +476,7 @@
 
             socket.on('reveal-answers', function (result) {
                 // console.log(result);
-                
+
                 var answer = result.answer;
                 var team_name = $('#team_name').val();
 
@@ -428,7 +495,7 @@
                 var leaderboard = result.leaderboard
                 var score = leaderboard[team_name]
                 $('#my_score_board').html(score);
-                
+
             });
 
             function update_cards(option_1, option_2, option_3, option_4) {
@@ -548,11 +615,11 @@
             function select_option(answer) {
 
                 var team_name = $('#team_name').val();
-                var q_number  = $('#current_question_number').val();
+                var q_number = $('#current_question_number').val();
 
                 // colog('option_index : ' + answer);
                 socket.emit('submit-answer', {
-                    q_number : q_number,
+                    q_number: q_number,
                     team_name: team_name,
                     answer: answer
                 });
@@ -561,12 +628,12 @@
 
                 $('#my_answer').val(answer);
             }
-          
-            
 
-            function get_random_name(){
-              randomIndex = Math.floor(Math.random() * random_names.length);
-              return random_names[randomIndex]
+
+
+            function get_random_name() {
+                randomIndex = Math.floor(Math.random() * random_names.length);
+                return random_names[randomIndex]
             }
 
             function show_vedhavoda_answer_dubba(answer, theme_color) {
@@ -667,25 +734,25 @@
 
             }
 
-        // It doesn't work dynamic html; We have to find a better to way to fix this; We just use select_option method ATM
-        // $('a.option_select').click(function(){
+            // It doesn't work dynamic html; We have to find a better to way to fix this; We just use select_option method ATM
+            // $('a.option_select').click(function(){
 
-        //     // colog('a clicked');
+            //     // colog('a clicked');
 
-        //     var option_index = $(this).data('option-index');
+            //     var option_index = $(this).data('option-index');
 
-        //     colog(option_index);
+            //     colog(option_index);
 
-        //     // $('input#quiz_hidden').val(option_index);
+            //     // $('input#quiz_hidden').val(option_index);
 
-        //     socket.emit('submit-answer', {
-        //         message: option_index
-        //     });
+            //     socket.emit('submit-answer', {
+            //         message: option_index
+            //     });
 
-        //     // find the selected card and submit it
-        // });
+            //     // find the selected card and submit it
+            // });
 
-        // $('form#quiz_form').on('submit', function (event) {
+            // $('form#quiz_form').on('submit', function (event) {
             // var option = document.querySelector('input[name="option"]:checked').value;
             // var checkbox_to_update = $("#options").val();
 
@@ -698,67 +765,67 @@
             // socket.emit('check', {
             //     message: option
             // })
-        // })
+            // })
 
-        // $('#form1').on('submit', function (event) {
-        //     // // var option = document.querySelector('input[name="option"]:checked').value;
-        //     // // var checkbox_to_update = $("#options").val();
-        //     // var form = $("#options");
-        //     // var option = form.find("input[name=option]:checked").val();
-        //     // // console.log(option);
-        //     // socket.emit('check', {
-        //     //     message: option
-        //     // })
-        //     $('#form1').hide();
-        // })
+            // $('#form1').on('submit', function (event) {
+            //     // // var option = document.querySelector('input[name="option"]:checked').value;
+            //     // // var checkbox_to_update = $("#options").val();
+            //     // var form = $("#options");
+            //     // var option = form.find("input[name=option]:checked").val();
+            //     // // console.log(option);
+            //     // socket.emit('check', {
+            //     //     message: option
+            //     // })
+            //     $('#form1').hide();
+            // })
 
-        function start_timer(){
+            function start_timer() {
 
-            // Set the date we're counting down to
-            //var countDownDate = new Date("May 16, 2021 14:59:00").getTime();
-    
-            var countDownDate  = get_target_time()
-    
-            // Update the count down every 1 second
-            var x = setInterval(function() {
-    
-            // Get today's date and time
-            var now = new Date().getTime();
-                
-            // Find the distance between now and the count down date
-            var distance = countDownDate - now;
-                
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-            // Output the result in an element with id="timer_box"
-            //document.getElementById("timer_box").innerHTML = days + "d " + hours + "h "
-            // + minutes + "m " + seconds + "s ";
-    
-            // document.getElementById("timer_box").innerHTML =  minutes + "m " + seconds + "s ";
-            var timer_content = ""
-            if(minutes < 1){
-                timer_content = seconds + "s ";
+                // Set the date we're counting down to
+                //var countDownDate = new Date("May 16, 2021 14:59:00").getTime();
+
+                var countDownDate = get_target_time()
+
+                // Update the count down every 1 second
+                var x = setInterval(function () {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Output the result in an element with id="timer_box"
+                    //document.getElementById("timer_box").innerHTML = days + "d " + hours + "h "
+                    // + minutes + "m " + seconds + "s ";
+
+                    // document.getElementById("timer_box").innerHTML =  minutes + "m " + seconds + "s ";
+                    var timer_content = ""
+                    if (minutes < 1) {
+                        timer_content = seconds + "s ";
+                    }
+
+                    $('#timer_box').html(timer_content);
+
+                    // If the count down is over, write some text 
+                    if (distance < 0) {
+                        clearInterval(x);
+                        // document.getElementById("timer_box").innerHTML = "Time's UP";
+                        $('#timer_box').html("Time's UP");
+                    }
+                }, 1000);
             }
-            
-            $('#timer_box').html(timer_content);
-                
-            // If the count down is over, write some text 
-            if (distance < 0) {
-                clearInterval(x);
-                // document.getElementById("timer_box").innerHTML = "Time's UP";
-                $('#timer_box').html("Time's UP");
+            function get_target_time() {
+                var countDownDate = new Date().getTime() + 61000;
+
+                return countDownDate
             }
-            }, 1000);
-        }
-        function get_target_time() {
-            var countDownDate =  new Date().getTime() + 61000;
-    
-            return countDownDate
-        }
 
         </script>
 </body>
